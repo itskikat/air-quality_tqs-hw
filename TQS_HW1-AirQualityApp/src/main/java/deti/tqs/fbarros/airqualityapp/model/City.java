@@ -2,22 +2,14 @@ package deti.tqs.fbarros.airqualityapp.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-
-@Entity
 @Data
 public class City {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_generated;
-
-
-    private Long idx;         // Unique ID for the city monitoring station
+    /*
+        DATA AVAILABLE IN EACH JSON RESPONSE FROM THE API
+     */
+    private Long id;          // Unique ID for the city monitoring station
     private String name;      // City Name
     private String timestamp; // Of the reading
     private Long aqi;         // Air Quality Information (Real-Time)
@@ -43,8 +35,8 @@ public class City {
     public City(){
     }
 
-    public City(Long idx, String name, String timestamp, Long aqi, Double co, Double no2, Double o3, Double pm10, Double pm25, Double so2, Double t, Double h, Double p, Double w) {
-        this.idx = idx;
+    public City(Long id, String name, String timestamp, Long aqi, Double co, Double no2, Double o3, Double pm10, Double pm25, Double so2, Double t, Double h, Double p, Double w) {
+        this.id = id;
         this.name = name;
         this.timestamp = timestamp;
         this.aqi = aqi;
@@ -63,8 +55,7 @@ public class City {
     @Override
     public String toString() {
         return "City{" +
-                "id_generated=" + id_generated +
-                ", idx=" + idx +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", timestamp='" + timestamp + '\'' +
                 ", aqi=" + aqi +
