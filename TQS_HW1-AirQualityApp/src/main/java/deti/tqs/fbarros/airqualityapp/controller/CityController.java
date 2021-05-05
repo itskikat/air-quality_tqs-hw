@@ -1,5 +1,6 @@
 package deti.tqs.fbarros.airqualityapp.controller;
 
+import deti.tqs.fbarros.airqualityapp.controller.CityErrorController;
 import deti.tqs.fbarros.airqualityapp.model.City;
 import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
 import deti.tqs.fbarros.airqualityapp.service.CityService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -33,23 +35,22 @@ public class CityController {
 
     @GetMapping("/city")
     public String getCityAQI(City form_city, Model model){
-        City city = new City();
         String user_input = form_city.getName();
-        System.out.println(user_input);
-        city.setName(user_input);
+        logger.info("[CityController] Displaying AQI for city " + user_input);
         City fromservice = cityService.getCityAirQuality(user_input);
         // The City was not in cache yet
-        if (fromservice == null){
-
+        if (fromservice.getName() == null){
+            return "error404";
         }
         model.addAttribute("infoteste", user_input);
-        model.addAttribute("city", city);
+        model.addAttribute("city", fromservice);
+        model.addAttribute("user_input", user_input);
         return "city_aqi";
     }
 
     @GetMapping("/kindofcache")
     public String kindofcachestatistics(Model model){
-        logger.info("[KindOfCacheService] Displaying KindOfCache all-time statistics");
+        logger.info("[CityController] Displaying KindOfCache all-time statistics");
         KindOfCache statistics = kindOfCacheService.getStatistics();
         model.addAttribute("statistics", statistics);
         return "kindofcachestats";
@@ -61,9 +62,23 @@ public class CityController {
 
     @GetMapping("/api/kindofcache")
     public ResponseEntity<KindOfCache> getKindOfCacheStatistics(){
-        logger.info("[KindOfCacheService] Fetching KindOfCache all-time statistics, to API");
+        logger.info("[CityController] Fetching KindOfCache all-time statistics, to API");
         KindOfCache statisticsreport = kindOfCacheService.getStatistics();
         return new ResponseEntity<>(statisticsreport, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/city/{city}")
+    public ResponseEntity<City> getAPICityAQI(@PathVariable String city){
+        logger.info("[KindOfCacheService] Fetching AQI for city " + city + ", to API");
+        City fromservice = cityService.getCityAirQuality(city);
+        // The City was not in cache yet
+        if (fromservice.getName() == null){
+            City output = new City();
+            return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(fromservice, HttpStatus.OK);
+        }
+
     }
 
 

@@ -28,8 +28,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-6">
-                <h2> Showing results for: <span th:text="${city.getName().toUpperCase()}" th:remove="tag"></span></h2>
+                <h2> Showing results for: <span th:text="${user_input.toUpperCase()}" th:remove="tag"></span></h2>
+                <p>Station Name: <span th:text="${city.getName()} ? ${city.getName()} : 'Station Name Unavailable' " th:remove="tag"></span></p>
+                <br>
                 <table class="table table-striped">
+                    <caption>
+                        <br>
+                        CO - Carbon Monoxide <br>
+                        NO2 - Nitrogen Dioxide <br>
+                        O3 - Ozone <br>
+                        PM10 - Particulate Matter 10 <br>
+                        PM25 - Particulate Matter 2.5 <br>
+                        SO2 - Sulphur Dioxide <br>
+                        T - Temperature <br>
+                        H - Humidity <br>
+                        P - Pressure <br>
+                        W - Wind <br>
+                        --- - Unavailable Data <br>
+                    </caption>
                     <thead>
                         <tr>
                             <th scope="col">Reading Timestamp</th>
@@ -48,27 +64,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">TEST</th>
-                            <td th:text="${infoteste}"></td>
-                            <td>----</td>
-                            <td>----</td>
+                            <td th:text="${city.getTimestamp()} ? ${city.getTimestamp()} : '---'"></td>
+                            <td th:text="${city.getAqi()} ? ${city.getAqi()} : '---'"></td>
+                            <td th:text="${city.getCo()} ? ${city.getCo()} : '---' "></td>
+                            <td th:text="${city.getNo2()} ? ${city.getNo2()} : '---'"></td>
+                            <td th:text="${city.getO3()} ? ${city.getO3()} : '---'"></td>
+                            <td th:text="${city.getPm10()} ? ${city.getPm10()} : '---'"></td>
+                            <td th:text="${city.getPm25()} ? ${city.getPm25()} : '---'"></td>
+                            <td th:text="${city.getSo2()} ? ${city.getSo2()} : '---'"></td>
+                            <td th:text="${city.getT()} ? ${city.getT()} : '---'"></td>
+                            <td th:text="${city.getH()} ? ${city.getH()} : '---'"></td>
+                            <td th:text="${city.getP()} ? ${city.getP()} : '---'"></td>
+                            <td th:text="${city.getW()} ? ${city.getW()} : '---'"></td>
                         </tr>
-                    <!--
-                        <tr>
-                            <td th:text="${city.getTimestamp()}"></td>
-                            <td th:text="${city.getAqi()}"></td>
-                            <td th:text="${city.getCo()}"></td>
-                            <td th:text="${city.getNo2()}"></td>
-                            <td th:text="${city.getO3()}"></td>
-                            <td th:text="${city.getPm10()}"></td>
-                            <td th:text="${city.getPm25()}"></td>
-                            <td th:text="${city.getSo2()}"></td>
-                            <td th:text="${city.getT()}"></td>
-                            <td th:text="${city.getH()}"></td>
-                            <td th:text="${city.getP()}"></td>
-                            <td th:text="${city.getW()}"></td>
-                        </tr>
-                     -->
+
                     </tbody>
                 </table>
             </div>
