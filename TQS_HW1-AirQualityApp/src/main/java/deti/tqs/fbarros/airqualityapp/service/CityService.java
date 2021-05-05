@@ -2,7 +2,6 @@ package deti.tqs.fbarros.airqualityapp.service;
 
 import deti.tqs.fbarros.airqualityapp.controller.CityController;
 import deti.tqs.fbarros.airqualityapp.model.City;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;

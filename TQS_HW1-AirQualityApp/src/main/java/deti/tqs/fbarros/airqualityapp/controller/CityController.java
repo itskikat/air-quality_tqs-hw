@@ -1,6 +1,5 @@
 package deti.tqs.fbarros.airqualityapp.controller;
 
-import deti.tqs.fbarros.airqualityapp.controller.CityErrorController;
 import deti.tqs.fbarros.airqualityapp.model.City;
 import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
 import deti.tqs.fbarros.airqualityapp.service.CityService;
