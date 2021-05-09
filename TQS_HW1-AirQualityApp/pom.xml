@@ -18,6 +18,13 @@
 
     <properties>
         <java.version>11</java.version>
+
+        <junit-jupiter.version>5.7.1</junit-jupiter.version>
+        <junit.jupiterapi.version>5.7.0</junit.jupiterapi.version>
+        <selenium.version>4.0.0-alpha-7</selenium.version>
+        <selenium.jupiter.version>3.4.0</selenium.jupiter.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+
     </properties>
 
     <dependencies>
@@ -77,6 +84,46 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiterapi.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- REST Assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.3.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <!-- Selenium Jupiter -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>selenium-jupiter</artifactId>
+            <version>${selenium.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- IDK why but this dependency was needed to make SeleniumIDE exported test pass... -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>24.0-jre</version>
+        </dependency>
 
     </dependencies>
 
@@ -92,6 +139,21 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <!-- Surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <properties>
+                        <configurationParameters>
+                            cucumber.plugin=pretty,html:target/site/cucumber-pretty.html
+                            cucumber.publish.quiet=true
+                            cucumber.publish.enabled=false
+                        </configurationParameters>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
