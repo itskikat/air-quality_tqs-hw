@@ -35,7 +35,7 @@ public class CityController {
     @GetMapping("/city")
     public String getCityAQI(City form_city, Model model) {
         String user_input = form_city.getName();
-        logger.info("[CityController] Displaying AQI for city " + user_input);
+        logger.info("[CityController] Displaying AQI for city {}", user_input);
         City fromservice = cityService.getCityAirQuality(user_input);
         // The City was not in cache yet
         if (fromservice.getName() == null){
@@ -68,7 +68,7 @@ public class CityController {
 
     @GetMapping("/api/city/{city}")
     public ResponseEntity<City> getAPICityAQI(@PathVariable String city) {
-        logger.info("[KindOfCacheService] Fetching AQI for city " + city + ", to API");
+        logger.info("[KindOfCacheService] Fetching AQI for city {}, to API", city);
         City fromservice = cityService.getCityAirQuality(city);
         // The City was not in cache yet
         if (fromservice.getName() == null){

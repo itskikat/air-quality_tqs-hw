@@ -17,7 +17,7 @@ class KindOfCacheServiceTest {
     public void setUp() {
         defaultEmptyKindOfCacheService = new KindOfCacheService();
 
-        expiringKindOfCacheService = new KindOfCacheService(5000); // 5 seconds
+        expiringKindOfCacheService = new KindOfCacheService(3000); // 3 seconds
 
     }
 
@@ -52,7 +52,7 @@ class KindOfCacheServiceTest {
         expiringKindOfCacheService.storeInCache(key, value);
         // Wait timeout+1 ms
         try {
-            Thread.sleep(5001);
+            Thread.sleep(3001);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -61,5 +61,6 @@ class KindOfCacheServiceTest {
         assertThat(expiringKindOfCacheService.getStatistics().getMisses(), is(1));
 
     }
+
 
 }

@@ -23,6 +23,9 @@ public class CityService {
 
     Logger logger = LoggerFactory.getLogger(CityController.class);
 
+    private void getWarning(Exception e) {
+        logger.warn("[CityService] Exception caught! {0}", e);
+    }
 
     public City getCityAirQuality(String city_name) {
         // Utilities
@@ -59,7 +62,7 @@ public class CityService {
             String name = city.getString("name");
             output.setName(name);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setName(null);
         }
         // Set Timestamp value
@@ -68,7 +71,7 @@ public class CityService {
             String timezone = time.getString("tz");
             output.setTimestamp(timestamp+' '+timezone);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setTimestamp(null);
         }
         // Set AQI value
@@ -76,7 +79,7 @@ public class CityService {
             Integer aqi = data.getInt("aqi");
             output.setAqi((long) aqi);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setAqi(null);
         }
         // Set CO value
@@ -84,7 +87,7 @@ public class CityService {
             Double co = iaqi.getJSONObject("co").getDouble("v");
             output.setCo(co);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setCo(null);
         }
         // Set NO2 value
@@ -92,7 +95,7 @@ public class CityService {
             Double no2 = iaqi.getJSONObject("no2").getDouble("v");
             output.setNo2(no2);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setNo2(null);
         }
         // Set O3 value
@@ -100,7 +103,7 @@ public class CityService {
             Double o3 = iaqi.getJSONObject("o3").getDouble("v");
             output.setO3(o3);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setO3(null);
         }
         // Set PM10 value
@@ -108,7 +111,7 @@ public class CityService {
             Double pm10 = iaqi.getJSONObject("pm10").getDouble("v");
             output.setPm10(pm10);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setPm10(null);
         }
         // Set PM25 value
@@ -116,7 +119,7 @@ public class CityService {
             Double pm25 = iaqi.getJSONObject("pm25").getDouble("v");
             output.setPm25(pm25);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setPm25(null);
         }
         // Set SO2 value
@@ -124,7 +127,7 @@ public class CityService {
             Double so2 = iaqi.getJSONObject("so2").getDouble("v");
             output.setSo2(so2);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setSo2(null);
         }
         // Set T value
@@ -132,7 +135,7 @@ public class CityService {
             Double t = iaqi.getJSONObject("t").getDouble("v");
             output.setT(t);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setT(null);
         }
         // Set H value
@@ -140,7 +143,7 @@ public class CityService {
             Double h = iaqi.getJSONObject("h").getDouble("v");
             output.setH(h);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setH(null);
         }
         // Set P value
@@ -148,7 +151,7 @@ public class CityService {
             Double p = iaqi.getJSONObject("p").getDouble("v");
             output.setP(p);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setP(null);
         }
         // Set W value
@@ -156,7 +159,7 @@ public class CityService {
             Double w = iaqi.getJSONObject("w").getDouble("v");
             output.setW(w);
         } catch (JSONException exception) {
-            logger.warn("[CityService] Exception caught! " + exception);
+            getWarning(exception);
             output.setW(null);
         }
 
