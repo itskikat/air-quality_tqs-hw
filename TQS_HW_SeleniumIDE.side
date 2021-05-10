@@ -1,0 +1,293 @@
+{
+  "id": "b357b0a1-ec46-4fb9-a127-248ac5553cdb",
+  "version": "2.0",
+  "name": "TQS_HW",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "543c140e-46c3-4279-87a3-cdc9c548e28a",
+    "name": "ValidCityAQI",
+    "commands": [{
+      "id": "7b9acaa5-e83a-45f6-b2ed-937d0e91f08a",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00b66e91-92cc-4777-bf1e-43309e5cad25",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "2560x1004",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4dd2ec28-fde9-4bf8-bb70-5033301e5f68",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "TQS Air Quality App",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ca446928-6d45-43d7-8cd5-d65de1b27990",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Welcome to the Air Quality Application!')]", "xpath:innerText"]
+      ],
+      "value": "Welcome to the Air Quality Application!"
+    }, {
+      "id": "bc0a5800-b30a-4bc9-97a4-940472ad77da",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h3",
+      "targets": [
+        ["css=h3", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Input the name of the city:')]", "xpath:innerText"]
+      ],
+      "value": "Input the name of the city:"
+    }, {
+      "id": "d85fe461-6cd7-4aea-85ab-059c165c069e",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.p-3",
+      "targets": [
+        ["css=.p-3", "css:finder"],
+        ["xpath=//footer/div", "xpath:position"]
+      ],
+      "value": "© 2021 Copyright: Francisca Barros"
+    }, {
+      "id": "b48a9bbe-fc40-4ae9-ba30-cc2232f69c60",
+      "comment": "",
+      "command": "click",
+      "target": "id=city_input",
+      "targets": [
+        ["id=city_input", "id"],
+        ["name=name", "name"],
+        ["css=#city_input", "css:finder"],
+        ["xpath=//input[@id='city_input']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e8e7259-a18d-4644-9cd1-45d5461506a3",
+      "comment": "",
+      "command": "type",
+      "target": "id=city_input",
+      "targets": [
+        ["id=city_input", "id"],
+        ["name=name", "name"],
+        ["css=#city_input", "css:finder"],
+        ["xpath=//input[@id='city_input']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "berlin"
+    }, {
+      "id": "95a57b68-e440-447d-aec6-3f2bce2dc2ff",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.btn",
+      "targets": [],
+      "value": "Check City AQI!"
+    }, {
+      "id": "b4ab61cb-f9c8-4524-9551-747ab7fe43c7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Check City AQI!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "32906355-d2b3-4f83-98f4-dcfbf7460e52",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [],
+      "value": "Showing results for: BERLIN"
+    }, {
+      "id": "a45e1de8-ef17-4fc0-b505-8fc1aeeaa043",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(6)",
+      "targets": [
+        ["css=th:nth-child(6)", "css:finder"],
+        ["xpath=//th[6]", "xpath:position"],
+        ["xpath=//th[contains(.,'PM10')]", "xpath:innerText"]
+      ],
+      "value": "PM10"
+    }]
+  }, {
+    "id": "62eb8991-7e5f-4341-a7c9-0f4f8fb8fc22",
+    "name": "InvalidCityAQI",
+    "commands": [{
+      "id": "9a2c22fc-5580-45d5-a835-f32ff28bb9eb",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b23714bd-3ab0-453c-a3f2-088d420faa95",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "2560x1004",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aac49f5f-07a3-477a-996c-56968b9f2369",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "TQS Air Quality App",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e11c51e1-1292-4cda-9c35-4c2c4c96f95f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Welcome to the Air Quality Application!')]", "xpath:innerText"]
+      ],
+      "value": "Welcome to the Air Quality Application!"
+    }, {
+      "id": "7fdda137-224a-4ece-95ed-bf309a949037",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h3",
+      "targets": [
+        ["css=h3", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Input the name of the city:')]", "xpath:innerText"]
+      ],
+      "value": "Input the name of the city:"
+    }, {
+      "id": "d20fcd28-f73d-4bcc-8e85-b9ec20b842c1",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.p-3",
+      "targets": [
+        ["css=.p-3", "css:finder"],
+        ["xpath=//footer/div", "xpath:position"]
+      ],
+      "value": "© 2021 Copyright: Francisca Barros"
+    }, {
+      "id": "ed71a3d8-c807-49c8-9bfe-a24ae6dbf8d3",
+      "comment": "",
+      "command": "click",
+      "target": "id=city_input",
+      "targets": [
+        ["id=city_input", "id"],
+        ["name=name", "name"],
+        ["css=#city_input", "css:finder"],
+        ["xpath=//input[@id='city_input']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "232839c0-a31b-4a54-b5ae-6f3546ad89ab",
+      "comment": "",
+      "command": "type",
+      "target": "id=city_input",
+      "targets": [
+        ["id=city_input", "id"],
+        ["name=name", "name"],
+        ["css=#city_input", "css:finder"],
+        ["xpath=//input[@id='city_input']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "XYZZZZ"
+    }, {
+      "id": "f3f7c6a5-ff94-405e-b2ac-c83942f2643d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.btn",
+      "targets": [],
+      "value": "Check City AQI!"
+    }, {
+      "id": "5b1dc16b-6156-442d-8511-529f51a50b02",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Check City AQI!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2ef52b13-76c4-488e-b89a-2101185cfc09",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//div[@id='notfound']/div/h1", "xpath:idRelative"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'404')]", "xpath:innerText"]
+      ],
+      "value": "404"
+    }, {
+      "id": "bcd24fd6-bfbe-44e6-a3ea-8016585bdf02",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//div[@id='notfound']/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Sorry but the page you are looking for does not exist, the developer must have fallen asleep!')]", "xpath:innerText"]
+      ],
+      "value": "Sorry but the page you are looking for does not exist, the developer must have fallen asleep!"
+    }, {
+      "id": "8edab806-e94c-4000-b68d-51265a6f87b5",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=a",
+      "targets": [
+        ["linkText=Back to homepage", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'Back to homepage')]", "xpath:link"],
+        ["xpath=//div[@id='notfound']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back to homepage')]", "xpath:innerText"]
+      ],
+      "value": "Back to homepage"
+    }, {
+      "id": "62bccfce-fee7-4900-b12b-fa2eff9b397c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Back to homepage",
+      "targets": [
+        ["linkText=Back to homepage", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'Back to homepage')]", "xpath:link"],
+        ["xpath=//div[@id='notfound']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back to homepage')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "59672ace-16e8-40eb-9dba-b1ddee8e5240",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["543c140e-46c3-4279-87a3-cdc9c548e28a"]
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}
