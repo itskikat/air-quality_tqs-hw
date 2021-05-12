@@ -12,7 +12,7 @@ public class City {
     private Long id;          // Unique ID for the city monitoring station
     private String name;      // City Name
     private String timestamp; // Of the reading
-    private Long aqi;         // Air Quality Information (Real-Time)
+    private Long aqi;         // Air Quality Index (Real-Time)
 
     /*
         Pollutants Measurements

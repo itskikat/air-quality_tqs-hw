@@ -146,15 +146,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <properties>
-                        <configurationParameters>
-                            cucumber.plugin=pretty,html:target/site/cucumber-pretty.html
-                            cucumber.publish.quiet=true
-                            cucumber.publish.enabled=false
-                        </configurationParameters>
-                    </properties>
-                </configuration>
+                <configuration></configuration>
             </plugin>
         </plugins>
     </build>
