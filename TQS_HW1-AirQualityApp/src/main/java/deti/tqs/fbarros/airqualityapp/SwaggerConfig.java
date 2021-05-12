@@ -39,7 +39,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Air Qualitty Application REST API")
+                .title("Air Quality Application REST API")
                 .description("Multi-level Spring Boot Application, that provides details on the air quality for a certain city")
                 .version("1.0.0")
                 .license("Apache License Version 2.0")

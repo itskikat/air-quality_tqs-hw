@@ -15,20 +15,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @ExtendWith(SeleniumJupiter.class)
-public class InvalidCityAQI_SeleniumIDETest {
+public class ValidCityAQI_SeleniumIDE {
 
     ChromeDriver driver;
 
-    public InvalidCityAQI_SeleniumIDETest(ChromeDriver driver) {
-        this.driver = driver;
+    public ValidCityAQI_SeleniumIDE(ChromeDriver driver) {
+      this.driver = driver;
     }
 
 
     @Test
-    public void invalidCityAQI() {
-        driver.get("http://localhost:8080/");
+    public void validCityAQI() {
+        driver.get("http://127.0.01:8080");
         driver.manage().window().setSize(new Dimension(2560, 1004));
-
 
         assertThat(driver.getTitle(), is("TQS Air Quality App"));
         {
@@ -46,8 +45,10 @@ public class InvalidCityAQI_SeleniumIDETest {
             String text = element.getText();
             assertThat(text, is("© 2021 Copyright: Francisca Barros"));
         }
+
         driver.findElement(By.id("city_input")).click();
-        driver.findElement(By.id("city_input")).sendKeys("XYZZZZ");
+        driver.findElement(By.id("city_input")).sendKeys("berlin");
+
         {
             WebElement element = driver.findElement(By.cssSelector(".btn"));
             String text = element.getText();
@@ -57,20 +58,15 @@ public class InvalidCityAQI_SeleniumIDETest {
         driver.findElement(By.cssSelector(".btn")).click();
 
         {
-            WebElement element = driver.findElement(By.cssSelector("h1"));
+            WebElement element = driver.findElement(By.cssSelector("h2"));
             String text = element.getText();
-            assertThat(text, is("404"));
+            assertThat(text, is("Showing results for: BERLIN"));
         }
         {
-            WebElement element = driver.findElement(By.cssSelector("p"));
+            WebElement element = driver.findElement(By.cssSelector("th:nth-child(6)"));
             String text = element.getText();
-            assertThat(text, is("Sorry but the page you are looking for does not exist, the developer must have fallen asleep!"));
+            assertThat(text, is("PM10"));
         }
-        {
-            WebElement element = driver.findElement(By.linkText("Back to homepage"));
-            String text = element.getText();
-            assertThat(text, is("Back to homepage"));
-        }
-        driver.findElement(By.linkText("Back to homepage")).click();
-  }
+
+    }
 }
