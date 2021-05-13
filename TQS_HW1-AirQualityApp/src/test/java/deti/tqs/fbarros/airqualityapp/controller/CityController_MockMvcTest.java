@@ -1,6 +1,7 @@
 package deti.tqs.fbarros.airqualityapp.controller;
 
 import deti.tqs.fbarros.airqualityapp.model.City;
+import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
 import deti.tqs.fbarros.airqualityapp.service.CityService;
 import deti.tqs.fbarros.airqualityapp.service.KindOfCacheService;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,19 @@ public class CityController_MockMvcTest {
                 .andExpect(jsonPath("$", aMapWithSize(14)));
 
         verify(cityService, times(1)).getCityAirQuality(any());
+    }
+
+    @Test
+    public void whenCacheRequested_thenReturnCacheStats() throws Exception {
+        KindOfCache empty = new KindOfCache();
+
+        when(kindOfCacheService.getStatistics()).thenReturn(empty);
+
+        mvc.perform(get("/api/kindofcache").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", aMapWithSize(3)));
+
+        verify(kindOfCacheService, times(1)).getStatistics();
     }
 
 }
