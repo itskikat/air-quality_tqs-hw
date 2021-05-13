@@ -26,6 +26,6 @@ public class KindOfCache {
     public void addMiss() {
         this.misses++;
     }
-    
+
 
 }
