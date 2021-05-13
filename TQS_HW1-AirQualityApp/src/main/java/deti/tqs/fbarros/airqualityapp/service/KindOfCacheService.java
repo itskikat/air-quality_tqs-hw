@@ -1,6 +1,5 @@
 package deti.tqs.fbarros.airqualityapp.service;
 
-import deti.tqs.fbarros.airqualityapp.controller.CityController;
 import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
 import org.apache.commons.collections4.map.PassiveExpiringMap;
 import org.slf4j.Logger;
@@ -13,7 +12,7 @@ public class KindOfCacheService {
     private PassiveExpiringMap<String, String> map; // expiring time in ms
     private KindOfCache kindofcache;
 
-    Logger logger = LoggerFactory.getLogger(CityController.class); // to log everything
+    Logger logger = LoggerFactory.getLogger(KindOfCacheService.class); // to log everything
 
     public KindOfCacheService() {
         this.map = new PassiveExpiringMap<>((long)120000); // default == 2 minutes

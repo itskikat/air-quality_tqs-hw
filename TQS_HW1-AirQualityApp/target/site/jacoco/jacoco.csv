@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.controller,CityErrorController,8,7,0,0,3,2,2,1,2,1
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.controller,CityController,45,50,2,2,12,11,3,4,2,3
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.controller,WebController,11,3,0,0,3,1,1,1,1,1
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp,TqsHw1AirQualityAppApplication,5,3,0,0,2,1,1,1,1,1
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp,SwaggerConfig,0,86,0,0,0,23,0,5,0,5
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.service,CityService,103,237,0,4,39,65,0,5,0,3
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.service,KindOfCacheService,0,86,0,2,0,22,0,6,0,5
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.model,KindOfCache,143,66,30,0,1,14,22,7,7,7
+TQS_HW1-AirQualityApp,deti.tqs.fbarros.airqualityapp.model,City,336,304,87,31,0,33,61,32,2,32

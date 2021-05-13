@@ -26,15 +26,6 @@ public class KindOfCache {
     public void addMiss() {
         this.misses++;
     }
-
-    @Override
-    public String toString() {
-        return "KindOfCache{" +
-                "reqcount=" + reqcount +
-                ", hits=" + hits +
-                ", misses=" + misses +
-                '}';
-    }
-
+    
 
 }

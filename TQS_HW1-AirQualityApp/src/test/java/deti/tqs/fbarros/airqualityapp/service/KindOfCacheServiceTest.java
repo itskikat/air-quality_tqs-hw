@@ -23,7 +23,7 @@ class KindOfCacheServiceTest {
 
     @DisplayName("The cache service should be empty upon creation")
     @Test
-    public void givenEmptyCache_whenGetSomething_thenReturnNull() {
+    void givenEmptyCache_whenGetSomething_thenReturnNull() {
         String something = "something";
         assertThat(defaultEmptyKindOfCacheService.getFromCache(something), equalTo(null));
         assertThat(defaultEmptyKindOfCacheService.getStatistics().getReqcount(), is(1));
@@ -32,7 +32,7 @@ class KindOfCacheServiceTest {
 
     @DisplayName("The cache service should return the correct value, when asked for a key")
     @Test
-    public void givenCacheWithItem_whenGetKey_thenReturnValue() {
+    void givenCacheWithItem_whenGetKey_thenReturnValue() {
         String key = "key";
         String value = "value";
 
@@ -45,7 +45,7 @@ class KindOfCacheServiceTest {
 
     @DisplayName("The cache service should return null, when the storing time expires")
     @Test
-    public void givenExpiringCache_whenGetKeyAfterTimeExpires_thenReturnValue() {
+    void givenExpiringCache_whenGetKeyAfterTimeExpires_thenReturnValue() {
         String key = "key";
         String value = "value";
         // Store pair in cache

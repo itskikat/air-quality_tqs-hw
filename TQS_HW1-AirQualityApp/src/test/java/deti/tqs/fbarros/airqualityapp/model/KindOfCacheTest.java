@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class KindOfCacheTest {
+class KindOfCacheTest {
 
     private KindOfCache emptyKindOfCache;
     private KindOfCache requestedKindOfCache;
@@ -29,7 +29,7 @@ public class KindOfCacheTest {
 
     @DisplayName("The cache should be empty upon construction")
     @Test
-    public void isEmpty_Test() {
+    void isEmpty_Test() {
         assertEquals(0, emptyKindOfCache.getReqcount());
         assertEquals(0, emptyKindOfCache.getHits());
         assertEquals(0, emptyKindOfCache.getMisses());
@@ -37,21 +37,21 @@ public class KindOfCacheTest {
 
     @DisplayName("The cache shouldn't be empty, if it was previously requested")
     @Test
-    public void hasRequests_Test() {
+    void hasRequests_Test() {
         assertEquals(1, requestedKindOfCache.getReqcount());
         assertNotEquals(0, requestedKindOfCache.getReqcount());
     }
 
     @DisplayName("The cache shouldn't be empty, if it was hit")
     @Test
-    public void hasHits_Test() {
+    void hasHits_Test() {
         assertEquals(1, hitKindOfCache.getHits());
         assertNotEquals(0, hitKindOfCache.getHits());
     }
 
     @DisplayName("The cache shouldn't be empty, if it was missed")
     @Test
-    public void hasMisses_Test() {
+    void hasMisses_Test() {
         assertEquals(1, missKindOfCache.getMisses());
         assertNotEquals(0, missKindOfCache.getMisses());
     }

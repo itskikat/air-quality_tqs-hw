@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: deti.tqs.fbarros.airqualityapp.service.CityServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.173 s - in deti.tqs.fbarros.airqualityapp.service.CityServiceTest

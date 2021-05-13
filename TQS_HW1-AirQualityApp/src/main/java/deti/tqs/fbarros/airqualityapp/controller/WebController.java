@@ -12,8 +12,8 @@ public class WebController {
     @ApiOperation(value = "Show the home page to the user")
     @GetMapping(path = "/")
     public String home(Model model){
-        City model_city = new City();
-        model.addAttribute("city", model_city);
+        City modelCity = new City();
+        model.addAttribute("city", modelCity);
         return "home";
     }
 }

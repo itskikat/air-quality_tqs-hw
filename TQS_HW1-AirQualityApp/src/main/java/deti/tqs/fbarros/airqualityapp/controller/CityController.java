@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -47,17 +46,16 @@ public class CityController {
             type = "City",
             value = "Name of the desired city",
             example = "Berlin",
-            required = true) City form_city, Model model) {
-        String user_input = form_city.getName();
-        logger.info("[CityController] Displaying AQI for city {}", user_input);
-        City fromservice = cityService.getCityAirQuality(user_input);
+            required = true) City formCity, Model model) {
+        String userInput = formCity.getName();
+        logger.info("[CityController] Displaying AQI for city {}", userInput);
+        City fromservice = cityService.getCityAirQuality(userInput);
         // The City was not in cache yet
         if (fromservice.getName() == null){
             return "error404";
         }
-        model.addAttribute("infoteste", user_input);
         model.addAttribute("city", fromservice);
-        model.addAttribute("user_input", user_input);
+        model.addAttribute("user_input", userInput);
         return "city_aqi";
     }
 

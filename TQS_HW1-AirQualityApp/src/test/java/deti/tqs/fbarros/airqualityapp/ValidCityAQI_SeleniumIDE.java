@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @ExtendWith(SeleniumJupiter.class)
-public class ValidCityAQI_SeleniumIDE {
+class ValidCityAQI_SeleniumIDE {
 
     ChromeDriver driver;
 
@@ -25,7 +25,7 @@ public class ValidCityAQI_SeleniumIDE {
 
 
     @Test
-    public void validCityAQI() {
+    void validCityAQI() {
         driver.get("http://127.0.01:8080");
         driver.manage().window().setSize(new Dimension(2560, 1004));
 

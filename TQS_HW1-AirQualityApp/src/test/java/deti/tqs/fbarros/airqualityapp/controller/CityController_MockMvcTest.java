@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-public class CityController_MockMvcTest {
+class CityController_MockMvcTest {
 
     @Autowired
     private MockMvc mvc;
@@ -32,7 +32,7 @@ public class CityController_MockMvcTest {
     private KindOfCacheService kindOfCacheService;
 
     @Test
-    public void whenGetValidCity_thenReturnCityAQI() throws Exception {
+    void whenGetValidCity_thenReturnCityAQI() throws Exception {
         City berlin = new City(6132L, "Berlin, Germany", "2021-05-08 20:00:00 +02:00", 37L, null, 29.3, 36.6, 21.0, null, null, 13.3, 45.3, 1015.2, 6.3);
 
         when(cityService.getCityAirQuality(any())).thenReturn(berlin);
@@ -45,7 +45,7 @@ public class CityController_MockMvcTest {
     }
 
     @Test
-    public void whenGetInvalidCity_thenReturnNullCity() throws Exception {
+    void whenGetInvalidCity_thenReturnNullCity() throws Exception {
         City invalid = new City();
 
         when(cityService.getCityAirQuality(any())).thenReturn(invalid);
@@ -58,7 +58,7 @@ public class CityController_MockMvcTest {
     }
 
     @Test
-    public void whenCacheRequested_thenReturnCacheStats() throws Exception {
+    void whenCacheRequested_thenReturnCacheStats() throws Exception {
         KindOfCache empty = new KindOfCache();
 
         when(kindOfCacheService.getStatistics()).thenReturn(empty);

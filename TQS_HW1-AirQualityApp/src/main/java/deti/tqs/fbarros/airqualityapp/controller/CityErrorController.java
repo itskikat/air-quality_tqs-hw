@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CityErrorController implements ErrorController {
 
-    Logger logger = LoggerFactory.getLogger(CityController.class);
+    Logger logger = LoggerFactory.getLogger(CityErrorController.class);
 
     @ApiOperation(value = "Show the error page to the user")
     @GetMapping(path = "/error404")

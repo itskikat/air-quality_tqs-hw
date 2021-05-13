@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CityService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TQS_HW1-AirQualityApp</a> &gt; <a href="index.source.html" class="el_package">deti.tqs.fbarros.airqualityapp.service</a> &gt; <span class="el_source">CityService.java</span></div><h1>CityService.java</h1><pre class="source lang-java linenums">package deti.tqs.fbarros.airqualityapp.service;
+
+import deti.tqs.fbarros.airqualityapp.model.City;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+
+@Service
+<span class="fc" id="L14">public class CityService {</span>
+
+    @Autowired
+    private KindOfCacheService kindOfCacheService;
+
+
+    static final String API_BASEURL = &quot;https://api.waqi.info/feed/&quot;;
+    static final String API_TOKEN = &quot;/?token=6addccba8550e0c70f2d10e8dc3e1d5d2e89238b&quot;;
+
+<span class="fc" id="L23">    Logger logger = LoggerFactory.getLogger(CityService.class);</span>
+
+    private void getWarning(Exception e) {
+<span class="fc" id="L26">        logger.warn(&quot;[CityService] Exception caught! {0}&quot;, e);</span>
+<span class="fc" id="L27">    }</span>
+
+    public City getCityAirQuality(String cityName) {
+        // Utilities
+<span class="fc" id="L31">        RestTemplate restTemplate = new RestTemplate();</span>
+        // Try fetching data from Cache
+<span class="fc" id="L33">        String incache = kindOfCacheService.getFromCache(cityName);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (incache != null){</span>
+<span class="fc" id="L35">            logger.info(&quot;[CityService] Found city in cache! --&gt; SUCCESS, HIT&quot;);</span>
+        } else {
+<span class="fc" id="L37">            logger.info(&quot;[CityService] City not in cache yet! --&gt; FAILURE, MISS&quot;);</span>
+<span class="fc" id="L38">            String url = API_BASEURL + cityName + API_TOKEN;</span>
+<span class="fc" id="L39">            incache = restTemplate.getForObject(url, String.class);</span>
+<span class="fc" id="L40">            kindOfCacheService.storeInCache(cityName, incache);</span>
+        }
+        // Converting JSON-STRING stuff, oh boy
+        // The object with everything
+<span class="fc" id="L44">        JSONObject object = new JSONObject(incache);</span>
+<span class="fc" id="L45">        String status = object.get(&quot;status&quot;).toString();</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (!status.equals(&quot;ok&quot;)){</span>
+<span class="fc" id="L47">            logger.error(&quot;[CityService] Status Not OK&quot;);</span>
+<span class="fc" id="L48">            return new City();</span>
+        }
+<span class="fc" id="L50">        City output = new City();</span>
+<span class="fc" id="L51">        JSONObject data = object.getJSONObject(&quot;data&quot;);</span>
+<span class="fc" id="L52">        JSONObject iaqi = data.getJSONObject(&quot;iaqi&quot;);</span>
+<span class="fc" id="L53">        JSONObject city = data.getJSONObject(&quot;city&quot;);</span>
+<span class="fc" id="L54">        JSONObject time = data.getJSONObject(&quot;time&quot;);</span>
+        // Set the ID
+<span class="fc" id="L56">        Integer id = data.getInt(&quot;idx&quot;);</span>
+<span class="fc" id="L57">        output.setId((long) id);</span>
+
+        // Set Station-Name value
+        try {
+<span class="fc" id="L61">            String name = city.getString(&quot;name&quot;);</span>
+<span class="fc" id="L62">            output.setName(name);</span>
+<span class="nc" id="L63">        } catch (JSONException exception) {</span>
+<span class="nc" id="L64">            getWarning(exception);</span>
+<span class="nc" id="L65">            output.setName(null);</span>
+<span class="fc" id="L66">        }</span>
+        // Set Timestamp value
+        try {
+<span class="fc" id="L69">            String timestamp = time.getString(&quot;s&quot;);</span>
+<span class="fc" id="L70">            String timezone = time.getString(&quot;tz&quot;);</span>
+<span class="fc" id="L71">            output.setTimestamp(timestamp+' '+timezone);</span>
+<span class="nc" id="L72">        } catch (JSONException exception) {</span>
+<span class="nc" id="L73">            getWarning(exception);</span>
+<span class="nc" id="L74">            output.setTimestamp(null);</span>
+<span class="fc" id="L75">        }</span>
+        // Set AQI value
+        try {
+<span class="fc" id="L78">            Integer aqi = data.getInt(&quot;aqi&quot;);</span>
+<span class="fc" id="L79">            output.setAqi((long) aqi);</span>
+<span class="nc" id="L80">        } catch (JSONException exception) {</span>
+<span class="nc" id="L81">            getWarning(exception);</span>
+<span class="nc" id="L82">            output.setAqi(null);</span>
+<span class="fc" id="L83">        }</span>
+        // Set CO value
+        try {
+<span class="nc" id="L86">            Double co = iaqi.getJSONObject(&quot;co&quot;).getDouble(&quot;v&quot;);</span>
+<span class="nc" id="L87">            output.setCo(co);</span>
+<span class="fc" id="L88">        } catch (JSONException exception) {</span>
+<span class="fc" id="L89">            getWarning(exception);</span>
+<span class="fc" id="L90">            output.setCo(null);</span>
+<span class="nc" id="L91">        }</span>
+        // Set NO2 value
+        try {
+<span class="fc" id="L94">            Double no2 = iaqi.getJSONObject(&quot;no2&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L95">            output.setNo2(no2);</span>
+<span class="nc" id="L96">        } catch (JSONException exception) {</span>
+<span class="nc" id="L97">            getWarning(exception);</span>
+<span class="nc" id="L98">            output.setNo2(null);</span>
+<span class="fc" id="L99">        }</span>
+        // Set O3 value
+        try {
+<span class="fc" id="L102">            Double o3 = iaqi.getJSONObject(&quot;o3&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L103">            output.setO3(o3);</span>
+<span class="nc" id="L104">        } catch (JSONException exception) {</span>
+<span class="nc" id="L105">            getWarning(exception);</span>
+<span class="nc" id="L106">            output.setO3(null);</span>
+<span class="fc" id="L107">        }</span>
+        // Set PM10 value
+        try {
+<span class="fc" id="L110">            Double pm10 = iaqi.getJSONObject(&quot;pm10&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L111">            output.setPm10(pm10);</span>
+<span class="nc" id="L112">        } catch (JSONException exception) {</span>
+<span class="nc" id="L113">            getWarning(exception);</span>
+<span class="nc" id="L114">            output.setPm10(null);</span>
+<span class="fc" id="L115">        }</span>
+        // Set PM25 value
+        try {
+<span class="nc" id="L118">            Double pm25 = iaqi.getJSONObject(&quot;pm25&quot;).getDouble(&quot;v&quot;);</span>
+<span class="nc" id="L119">            output.setPm25(pm25);</span>
+<span class="fc" id="L120">        } catch (JSONException exception) {</span>
+<span class="fc" id="L121">            getWarning(exception);</span>
+<span class="fc" id="L122">            output.setPm25(null);</span>
+<span class="nc" id="L123">        }</span>
+        // Set SO2 value
+        try {
+<span class="nc" id="L126">            Double so2 = iaqi.getJSONObject(&quot;so2&quot;).getDouble(&quot;v&quot;);</span>
+<span class="nc" id="L127">            output.setSo2(so2);</span>
+<span class="fc" id="L128">        } catch (JSONException exception) {</span>
+<span class="fc" id="L129">            getWarning(exception);</span>
+<span class="fc" id="L130">            output.setSo2(null);</span>
+<span class="nc" id="L131">        }</span>
+        // Set T value
+        try {
+<span class="fc" id="L134">            Double t = iaqi.getJSONObject(&quot;t&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L135">            output.setT(t);</span>
+<span class="nc" id="L136">        } catch (JSONException exception) {</span>
+<span class="nc" id="L137">            getWarning(exception);</span>
+<span class="nc" id="L138">            output.setT(null);</span>
+<span class="fc" id="L139">        }</span>
+        // Set H value
+        try {
+<span class="fc" id="L142">            Double h = iaqi.getJSONObject(&quot;h&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L143">            output.setH(h);</span>
+<span class="nc" id="L144">        } catch (JSONException exception) {</span>
+<span class="nc" id="L145">            getWarning(exception);</span>
+<span class="nc" id="L146">            output.setH(null);</span>
+<span class="fc" id="L147">        }</span>
+        // Set P value
+        try {
+<span class="fc" id="L150">            Double p = iaqi.getJSONObject(&quot;p&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L151">            output.setP(p);</span>
+<span class="nc" id="L152">        } catch (JSONException exception) {</span>
+<span class="nc" id="L153">            getWarning(exception);</span>
+<span class="nc" id="L154">            output.setP(null);</span>
+<span class="fc" id="L155">        }</span>
+        // Set W value
+        try {
+<span class="fc" id="L158">            Double w = iaqi.getJSONObject(&quot;w&quot;).getDouble(&quot;v&quot;);</span>
+<span class="fc" id="L159">            output.setW(w);</span>
+<span class="nc" id="L160">        } catch (JSONException exception) {</span>
+<span class="nc" id="L161">            getWarning(exception);</span>
+<span class="nc" id="L162">            output.setW(null);</span>
+<span class="fc" id="L163">        }</span>
+
+<span class="fc" id="L165">        return output;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

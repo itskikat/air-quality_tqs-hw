@@ -52,23 +52,4 @@ public class City {
         this.w = w;
     }
 
-    @Override
-    public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", aqi=" + aqi +
-                ", co=" + co +
-                ", no2=" + no2 +
-                ", o3=" + o3 +
-                ", pm10=" + pm10 +
-                ", pm25=" + pm25 +
-                ", so2=" + so2 +
-                ", t=" + t +
-                ", h=" + h +
-                ", p=" + p +
-                ", w=" + w +
-                '}';
-    }
 }

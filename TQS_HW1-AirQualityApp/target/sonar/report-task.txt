@@ -1,0 +1,6 @@
+projectKey=deti.tqs.fbarros:airqualityapp
+serverUrl=http://localhost:9000
+serverVersion=8.8.0.42792
+dashboardUrl=http://localhost:9000/dashboard?id=deti.tqs.fbarros%3Aairqualityapp
+ceTaskId=AXlmzhKCd17b-uxkr_IN
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXlmzhKCd17b-uxkr_IN

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CityController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TQS_HW1-AirQualityApp</a> &gt; <a href="index.source.html" class="el_package">deti.tqs.fbarros.airqualityapp.controller</a> &gt; <span class="el_source">CityController.java</span></div><h1>CityController.java</h1><pre class="source lang-java linenums">package deti.tqs.fbarros.airqualityapp.controller;
+
+import deti.tqs.fbarros.airqualityapp.model.City;
+import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
+import deti.tqs.fbarros.airqualityapp.service.CityService;
+import deti.tqs.fbarros.airqualityapp.service.KindOfCacheService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+@Controller
+<span class="fc" id="L23">public class CityController {</span>
+
+
+<span class="fc" id="L26">    Logger logger = LoggerFactory.getLogger(CityController.class);</span>
+
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private KindOfCacheService kindOfCacheService;
+
+    /*
+        Gets AQI for the city the user inputs in the form
+        From the API 
+     */
+
+    @ApiOperation(value = &quot;Get the AQI of a desired city&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;OK&quot;, response = City.class, responseContainer = &quot;List&quot;),
+             })
+    @GetMapping(&quot;/city&quot;)
+    public String getCityAQI(@ApiParam(
+            name =  &quot;form_city&quot;,
+            type = &quot;City&quot;,
+            value = &quot;Name of the desired city&quot;,
+            example = &quot;Berlin&quot;,
+            required = true) City formCity, Model model) {
+<span class="nc" id="L50">        String userInput = formCity.getName();</span>
+<span class="nc" id="L51">        logger.info(&quot;[CityController] Displaying AQI for city {}&quot;, userInput);</span>
+<span class="nc" id="L52">        City fromservice = cityService.getCityAirQuality(userInput);</span>
+        // The City was not in cache yet
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (fromservice.getName() == null){</span>
+<span class="nc" id="L55">            return &quot;error404&quot;;</span>
+        }
+<span class="nc" id="L57">        model.addAttribute(&quot;city&quot;, fromservice);</span>
+<span class="nc" id="L58">        model.addAttribute(&quot;user_input&quot;, userInput);</span>
+<span class="nc" id="L59">        return &quot;city_aqi&quot;;</span>
+    }
+
+    @ApiOperation(value = &quot;Get the Cache's Statistics&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;OK&quot;, response = KindOfCache.class, responseContainer = &quot;List&quot;),
+    })
+    @GetMapping(&quot;/kindofcache&quot;)
+    public String kindofcachestatistics(Model model){
+<span class="nc" id="L68">        logger.info(&quot;[CityController] Displaying KindOfCache all-time statistics&quot;);</span>
+<span class="nc" id="L69">        KindOfCache statistics = kindOfCacheService.getStatistics();</span>
+<span class="nc" id="L70">        model.addAttribute(&quot;statistics&quot;, statistics);</span>
+<span class="nc" id="L71">        return &quot;kindofcachestats&quot;;</span>
+    }
+
+    /*
+        CMD-FOCUSED / POSTMAN endpoints
+     */
+
+    @ApiOperation(value = &quot;[Developer Oriented] Get the Cache's Statistics&quot;)
+    @GetMapping(&quot;/api/kindofcache&quot;)
+    public ResponseEntity&lt;KindOfCache&gt; getKindOfCacheStatistics(){
+<span class="fc" id="L81">        logger.info(&quot;[CityController] Fetching KindOfCache all-time statistics, to API&quot;);</span>
+<span class="fc" id="L82">        KindOfCache statisticsreport = kindOfCacheService.getStatistics();</span>
+<span class="fc" id="L83">        return new ResponseEntity&lt;&gt;(statisticsreport, HttpStatus.OK);</span>
+    }
+
+    @ApiOperation(value = &quot;[Developer Oriented] Get the AQI of a specific city&quot;)
+    @GetMapping(&quot;/api/city/{city}&quot;)
+    public ResponseEntity&lt;City&gt; getAPICityAQI(@ApiParam(
+            name =  &quot;city&quot;,
+            type = &quot;String&quot;,
+            value = &quot;Name of the desired city&quot;,
+            example = &quot;Berlin&quot;,
+            required = true) @PathVariable String city) {
+<span class="fc" id="L94">        logger.info(&quot;[KindOfCacheService] Fetching AQI for city {}, to API&quot;, city);</span>
+<span class="fc" id="L95">        City fromservice = cityService.getCityAirQuality(city);</span>
+        // The City was not in cache yet
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (fromservice.getName() == null){</span>
+<span class="fc" id="L98">            City output = new City();</span>
+<span class="fc" id="L99">            return new ResponseEntity&lt;&gt;(output, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="fc" id="L101">            return new ResponseEntity&lt;&gt;(fromservice, HttpStatus.OK);</span>
+        }
+
+    }
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

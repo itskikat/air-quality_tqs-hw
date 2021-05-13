@@ -1,6 +1,5 @@
 package deti.tqs.fbarros.airqualityapp.service;
 
-import deti.tqs.fbarros.airqualityapp.controller.CityController;
 import deti.tqs.fbarros.airqualityapp.model.City;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,24 +20,24 @@ public class CityService {
     static final String API_BASEURL = "https://api.waqi.info/feed/";
     static final String API_TOKEN = "/?token=6addccba8550e0c70f2d10e8dc3e1d5d2e89238b";
 
-    Logger logger = LoggerFactory.getLogger(CityController.class);
+    Logger logger = LoggerFactory.getLogger(CityService.class);
 
     private void getWarning(Exception e) {
         logger.warn("[CityService] Exception caught! {0}", e);
     }
 
-    public City getCityAirQuality(String city_name) {
+    public City getCityAirQuality(String cityName) {
         // Utilities
         RestTemplate restTemplate = new RestTemplate();
         // Try fetching data from Cache
-        String incache = kindOfCacheService.getFromCache(city_name);
+        String incache = kindOfCacheService.getFromCache(cityName);
         if (incache != null){
             logger.info("[CityService] Found city in cache! --> SUCCESS, HIT");
         } else {
             logger.info("[CityService] City not in cache yet! --> FAILURE, MISS");
-            String url = API_BASEURL + city_name + API_TOKEN;
+            String url = API_BASEURL + cityName + API_TOKEN;
             incache = restTemplate.getForObject(url, String.class);
-            kindOfCacheService.storeInCache(city_name, incache);
+            kindOfCacheService.storeInCache(cityName, incache);
         }
         // Converting JSON-STRING stuff, oh boy
         // The object with everything

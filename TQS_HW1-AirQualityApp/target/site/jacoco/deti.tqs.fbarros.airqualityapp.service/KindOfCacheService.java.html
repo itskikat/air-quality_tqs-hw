@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KindOfCacheService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TQS_HW1-AirQualityApp</a> &gt; <a href="index.source.html" class="el_package">deti.tqs.fbarros.airqualityapp.service</a> &gt; <span class="el_source">KindOfCacheService.java</span></div><h1>KindOfCacheService.java</h1><pre class="source lang-java linenums">package deti.tqs.fbarros.airqualityapp.service;
+
+import deti.tqs.fbarros.airqualityapp.model.KindOfCache;
+import org.apache.commons.collections4.map.PassiveExpiringMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class KindOfCacheService {
+
+    private PassiveExpiringMap&lt;String, String&gt; map; // expiring time in ms
+    private KindOfCache kindofcache;
+
+<span class="fc" id="L15">    Logger logger = LoggerFactory.getLogger(KindOfCacheService.class); // to log everything</span>
+
+<span class="fc" id="L17">    public KindOfCacheService() {</span>
+<span class="fc" id="L18">        this.map = new PassiveExpiringMap&lt;&gt;((long)120000); // default == 2 minutes</span>
+<span class="fc" id="L19">        this.kindofcache = new KindOfCache();</span>
+<span class="fc" id="L20">    }</span>
+
+    // Ability to set the desired time to expire
+<span class="fc" id="L23">    public KindOfCacheService(long exptime) {</span>
+<span class="fc" id="L24">        this.map = new PassiveExpiringMap&lt;&gt;(exptime); // default == 2 minutes</span>
+<span class="fc" id="L25">        this.kindofcache = new KindOfCache();</span>
+<span class="fc" id="L26">    }</span>
+
+    public KindOfCache getStatistics(){
+<span class="fc" id="L29">        logger.info(&quot;[KindOfCacheService] Retrieving cache statistics&quot;);</span>
+<span class="fc" id="L30">        return this.kindofcache;</span>
+    }
+
+    public String storeInCache(String k, String v){
+<span class="fc" id="L34">        logger.info(&quot;[KindOfCacheService] Storing something in cache&quot;);</span>
+<span class="fc" id="L35">        return this.map.put(k, v);</span>
+    }
+
+    public String getFromCache(String k){
+<span class="fc" id="L39">        logger.info(&quot;[KindOfCacheService] Attempting to get something from cache&quot;);</span>
+<span class="fc" id="L40">        String v = this.map.get(k);</span>
+<span class="fc" id="L41">        this.kindofcache.addReqCount();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (v != null){</span>
+<span class="fc" id="L43">            logger.info(&quot;[KindOfCacheService] New hit in cache&quot;);</span>
+<span class="fc" id="L44">            this.kindofcache.addHit();</span>
+        } else {
+<span class="fc" id="L46">            logger.info(&quot;[KindOfCacheService] New miss in cache&quot;);</span>
+<span class="fc" id="L47">            this.kindofcache.addMiss();</span>
+        }
+<span class="fc" id="L49">        return v;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
